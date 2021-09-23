@@ -17,7 +17,10 @@ RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
 RUN apt-get update && \
     apt-get install -y \
         man \
-        manpages-posix
+        manpages-posix 
+
+# Instrall essential utitilites
+RUN apt-get install -y less
 
 # Add vagrant user and key for SSH
 RUN useradd --create-home -s /bin/bash vagrant

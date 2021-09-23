@@ -10,6 +10,14 @@ RUN apt-get update -y && apt-get dist-upgrade -y
 # Install system dependencies, you may not need all of these
 RUN apt-get install -y --no-install-recommends ssh sudo libffi-dev systemd openssh-client
 
+# Install man for help
+RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
+        /etc/dpkg/dpkg.cfg.d/excludes
+
+RUN apt-get update && \
+    apt-get install -y \
+        man \
+        manpages-posix
 
 # Add vagrant user and key for SSH
 RUN useradd --create-home -s /bin/bash vagrant

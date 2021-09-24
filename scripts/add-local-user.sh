@@ -14,9 +14,19 @@ fi
 
 # Prompting user name and password for the new account
 read -p "Enter username: "  USER_NAME
+read -p "Enter fullname: " FULL_NAME
 read -p "Enter password: "  PASS_WORD
 
 # Create a new user
-useradd -m "${USER_NAME}"
+CREATE_USER_CMD=$(useradd -c "{FULL_NAME}" -m "${USER_NAME}")
+CHANGE_PASSWD_CMD=$(echo "${PASS_WORD}" | passwd "${USER_NAME}")
+if [  ! "$CREATE_USER_CMD" ] || [ ! "$CHANGE_PASSWD_CMD" ] 
+then
+  echo "User was not created"
+else
+  echo "User Created successfully"
+fi
+
+
 echo "Username entered: $USER_NAME"
 echo "Password entered: $PASS_WORD"

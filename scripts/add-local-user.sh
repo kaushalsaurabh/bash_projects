@@ -18,13 +18,15 @@ read -p "Enter fullname: " FULL_NAME
 read -p "Enter password: "  PASS_WORD
 
 # Create a new user
-CREATE_USER_CMD=$(useradd -c "{FULL_NAME}" -m "${USER_NAME}")
-CHANGE_PASSWD_CMD=$(echo "${PASS_WORD}" | passwd "${USER_NAME}")
-if [  ! "$CREATE_USER_CMD" ] || [ ! "$CHANGE_PASSWD_CMD" ] 
+useradd -c "${FULL_NAME}" -m "${USER_NAME}"
+user_add_status=$?
+echo -e "$PASS_WORD\n$PASS_WORD" | passwd "${USER_NAME}"
+password_set_status=$?
+if [ "$user_add_status" -ne 0 ] || [ "$password_set_status" -ne 0 ]
 then
   echo "User was not created"
 else
-  echo "User Created successfully"
+  echo "User created successfully"
 fi
 
 

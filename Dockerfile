@@ -15,7 +15,7 @@ RUN sed -i 's:^path-exclude=/usr/share/man:#path-exclude=/usr/share/man:' \
         /etc/dpkg/dpkg.cfg.d/excludes
 
 RUN apt-get update && \
-    apt-get install -y \
+        apt-get install -y \
         man \
         manpages-posix 
 
